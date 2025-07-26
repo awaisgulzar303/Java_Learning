@@ -4,11 +4,20 @@ public class Student extends Person {
 
 
 
-
+    private String id;
     private String grade;
 
-    public Student(String name, int age, String address, String grade) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Student(String name, int age, String address, String id, String grade) {
         super(name, age, address);
+        this.id = id;
         this.grade = grade;
     }
 
