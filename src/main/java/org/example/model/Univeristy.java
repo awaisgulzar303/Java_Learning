@@ -1,4 +1,4 @@
-package org.example;
+package org.example.model;
 
 import java.util.List;
 
@@ -7,14 +7,14 @@ public class Univeristy {
     private String location;
     private List<Student> students;
     private List<Teacher> teacher;
-    private List<Subject> subject;
 
-    public Univeristy(String name, String location, List<Student> students, List<Teacher> teacher, List<Subject> subject) {
+    private List<Course> course;
+    public Univeristy(String name, String location, List<Student> students, List<Teacher> teacher,List<Course> course) {
         this.name = name;
         this.location = location;
         this.students = students;
         this.teacher = teacher;
-        this.subject = subject;
+        this.course=course;
     }
 
     public String getName() {
@@ -49,11 +49,14 @@ public class Univeristy {
         this.teacher = teacher;
     }
 
-    public List<Subject> getSubject() {
-        return subject;
+
+    public List<Course> getCourse() {
+        return course;
     }
 
-    public void setSubject(List<Subject> subject) {
-        this.subject = subject;
+    public void setCourse(List<Course> course) {
+        this.course = course;
     }
+
+
 }

@@ -1,6 +1,6 @@
-package org.example;
+package org.example.model;
 
-public class Teacher extends Person{
+public class Teacher extends Person {
 
     private String subject;
     private String id;
@@ -13,6 +13,14 @@ public class Teacher extends Person{
 
     public String getSubject() {
         return subject;
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "subject='" + subject + '\'' +
+                ", id='" + id + '\'' +
+                "} " + super.toString();
     }
 
     public void setSubject(String subject) {

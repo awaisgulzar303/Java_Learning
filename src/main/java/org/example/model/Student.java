@@ -1,4 +1,4 @@
-package org.example;
+package org.example.model;
 
 public class Student extends Person {
 
@@ -6,6 +6,14 @@ public class Student extends Person {
 
     private String id;
     private String grade;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id='" + id + '\'' +
+                ", grade='" + grade + '\'' +
+                '}';
+    }
 
     public String getId() {
         return id;
