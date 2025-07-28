@@ -58,7 +58,7 @@ public class Main {
                     String id = scanner.nextLine();
                     if (filterById(id, teachersList)) {
 
-                        System.out.println("Enroll subjects as a tecaher");
+                        System.out.println("Enroll subjects as a teacher");
 
                     }
                     System.out.println("Press 1");
