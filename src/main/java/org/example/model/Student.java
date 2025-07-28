@@ -1,9 +1,6 @@
 package org.example.model;
 
 public class Student extends Person {
-
-
-
     private String id;
     private String grade;
 
@@ -39,7 +36,7 @@ public class Student extends Person {
 
 
     public void studentInfo() {
-        System.out.println("My name is " + getName()+"." + "I am from " + getAddress() + "." +"I am "+getAge()+" years old"+"My gardes in unoversity are "+getGrade());
+        System.out.println("My name is " + getName() + "." + "I am from " + getAddress() + "." + "I am " + getAge() + " years old" + "My gardes in unoversity are " + getGrade());
     }
 }
 

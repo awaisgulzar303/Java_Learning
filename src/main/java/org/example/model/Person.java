@@ -1,9 +1,9 @@
 package org.example.model;
 
-public class Person  {
+public class Person {
     private String name;
     private int age;
-    private  String address;
+    private String address;
 
     @Override
     public String toString() {

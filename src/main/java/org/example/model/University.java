@@ -2,19 +2,20 @@ package org.example.model;
 
 import java.util.List;
 
-public class Univeristy {
+public class University {
     private String name;
     private String location;
     private List<Student> students;
     private List<Teacher> teacher;
 
-    private List<Course> course;
-    public Univeristy(String name, String location, List<Student> students, List<Teacher> teacher,List<Course> course) {
+    private List<CourseRecord> course;
+
+    public University(String name, String location, List<Student> students, List<Teacher> teacher, List<CourseRecord> course) {
         this.name = name;
         this.location = location;
         this.students = students;
         this.teacher = teacher;
-        this.course=course;
+        this.course = course;
     }
 
     public String getName() {
@@ -50,11 +51,11 @@ public class Univeristy {
     }
 
 
-    public List<Course> getCourse() {
+    public List<CourseRecord> getCourse() {
         return course;
     }
 
-    public void setCourse(List<Course> course) {
+    public void setCourse(List<CourseRecord> course) {
         this.course = course;
     }
 

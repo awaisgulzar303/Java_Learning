@@ -1,13 +1,11 @@
 package org.example.model;
 
-import java.util.List;
-
-public class EnrollCourses {
+public class Enrollment {
     private String enrollmentId;
     private String userId;
     private String courseId;
 
-    public EnrollCourses(String enrollmentId, String userId, String courseId) {
+    public Enrollment(String enrollmentId, String userId, String courseId) {
         this.enrollmentId = enrollmentId;
         this.userId = userId;
         this.courseId = courseId;
