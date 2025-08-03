@@ -2,6 +2,7 @@ package org.example.model;
 
 public record Enrollment(
         String enrollmentId,
-        String userId,
+        String studentId,
+        String teacherId,
         String courseId) {
 }

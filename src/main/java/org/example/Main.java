@@ -1,23 +1,28 @@
 package org.example;
 
+import org.example.model.Employee;
 import org.example.model.University;
-import org.example.sevice.CourseService;
-import org.example.sevice.StudentService;
-import org.example.sevice.TeacherService;
+import org.example.sevice.ManagerService;
 
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 
 public class Main {
     public static void main(String[] args) {
-        CourseService courseService = new CourseService();
-        TeacherService teacherService = new TeacherService();
-        StudentService studentService = new StudentService();
+        ManagerService managerService = new ManagerService();
 
+        Stream<Employee> teacherStream = managerService.getTeacherService().getTeachers()
+                .stream()
+                .map(t -> t);
+        Stream<Employee> managerStream = managerService.getManagementService().getManagers()
+                .stream()
+                .map(t -> t);
+        List<Employee> employees = Stream.concat(teacherStream, managerStream).toList();
 
-        University u1 = new University("UMT", "Johar town", studentService.getStudents(), teacherService.getTeachers());
-
-        System.out.println("Welcome to " + u1.name());
+        University u1 = new University("UMT", "Johar town", managerService.getStudentService().getStudents(), employees);
+        System.out.println("Welcome to " + u1.getName());
 
 
         Scanner scanner = new Scanner(System.in);
@@ -42,20 +47,23 @@ public class Main {
                     System.out.println("Enter Id of the teacher:");
                     id = scanner.nextLine();
                     do {
-                        if (teacherService.getTeacherById(id).isPresent()) {
+                        if (managerService.getTeacherService().getTeacherById(id).isPresent()) {
                             System.out.println("Teacher with the given ID already exists.");
                         } else {
                             System.out.println("Enter your name:");
                             String name = scanner.nextLine();
                             System.out.println("Enter your subject:");
                             String subject = scanner.nextLine();
+                            System.out.println("Enter your department:");
+                            String department = scanner.nextLine();
                             System.out.println("Enter your age:");
                             int age = scanner.nextInt();
                             System.out.println("Enter your address:");
                             String address = scanner.nextLine();
                             scanner.nextLine();
-                            teacherService.addTeacher(name, subject, age, address, id);
+                            managerService.getTeacherService().addTeacher(name, subject, age, address, id, department);
                             System.out.println("Teacher added successfully!");
+                            System.out.println(managerService.getTeacherService().getTeachers());
                             System.out.println("Press 1 to add another teacher or any other key to exit");
                             id = null;
                             temp = scanner.nextInt();
@@ -69,7 +77,7 @@ public class Main {
                     id = scanner.nextLine();
                     do {
 
-                        if (studentService.getStudentById(id).isPresent()) {
+                        if (managerService.getStudentService().getStudentById(id).isPresent()) {
                             System.out.println("Student with the given ID already exists.");
                         } else {
                             System.out.println("Enter your name:");
@@ -79,7 +87,7 @@ public class Main {
                             System.out.println("Enter your address:");
                             String address = scanner.nextLine();
                             scanner.nextLine();
-                            studentService.createStudent(name, age, address, id);
+                            managerService.getStudentService().createStudent(name, age, address, id);
                             System.out.println("Student added successfully!");
                             System.out.println("Press 1 to add another student or any other key to exit");
                             temp = scanner.nextInt();
@@ -94,12 +102,12 @@ public class Main {
                     id = scanner.nextLine();
                     do {
 
-                        if (courseService.getCourseById(id).isPresent()) {
+                        if (managerService.getCourseService().getCourseById(id).isPresent()) {
                             System.out.println("Course with the given ID already exists.");
                         } else {
                             System.out.println("Enter Course Name:");
                             String courseName = scanner.nextLine();
-                            courseService.createCourse(id, courseName);
+                            managerService.getCourseService().createCourse(id, courseName);
                             System.out.println("Course added successfully!");
                             System.out.println("Press 1 to add another course or any other key to exit");
                             temp = scanner.nextInt();
@@ -109,21 +117,24 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println(courseService.getCourses());
+                    System.out.println(managerService.getCourseService().getCourses());
                     break;
                 case 5:
                     System.out.println("Enter Enrollment ID:");
                     id = scanner.nextLine();
                     do {
-                        System.out.println("Enter user ID:");
-                        String userId = scanner.nextLine();
+                        System.out.println("Enter student ID:");
+                        String studentId = scanner.nextLine();
+                        System.out.println("Enter teacher ID:");
+                        String teacherId = scanner.nextLine();
                         System.out.println("Enter Course ID:");
                         String courseId = scanner.nextLine();
+                        managerService.getEnrollmentService().enrollCourses(id, studentId, teacherId, courseId);
                         System.out.println("Press 1 to enroll more courses:");
                         temp = scanner.nextInt();
                         scanner.nextLine();
                         id = null;
-                    } while (temp >= 1);
+                    } while (temp == 1);
                     break;
                 case 6:
                     System.out.println("Goodbye!");
