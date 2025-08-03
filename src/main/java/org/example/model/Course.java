@@ -1,6 +1,6 @@
 package org.example.model;
 
-public record CourseRecord(
+public record Course(
         String courseId,
         String courseName) {
 }
