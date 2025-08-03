@@ -1,25 +1,29 @@
 package org.example.sevice;
 
-import org.example.model.Course;
+import lombok.Getter;
 import org.example.model.Enrollment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-
+@Getter
 public class EnrollmentService {
+    private List<Enrollment> listOfEnrollCourses = new ArrayList<>();
     CourseService courseService = new CourseService();
 
-    public List<Enrollment> enrollCourses(String enrollementID, String userId, String courseId, List<Course> courseList) {
+    public void enrollCourses(String enrollementID, String studentId, String teacherId, String courseId) {
         if (courseService.getCourseById(courseId).isEmpty()) {
-            return List.of();
+            return;
         }
-        Enrollment enrollCourse = new Enrollment(enrollementID, userId, courseId);
-        List<Enrollment> listOfEnrollCourses = new ArrayList<>();
-        listOfEnrollCourses.add(enrollCourse);
-        return listOfEnrollCourses;
+        listOfEnrollCourses.add(new Enrollment(enrollementID, studentId, teacherId, courseId));
     }
 
+    public Optional<Enrollment> getEnrollmentById(String enrollementID) {
+        return listOfEnrollCourses.stream()
+                .filter(enrollment -> enrollment.enrollmentId().equals(enrollementID))
+                .findFirst();
+    }
 
 }
 

@@ -1,16 +1,28 @@
 package org.example;
 
+import org.example.model.Employee;
 import org.example.model.University;
 import org.example.sevice.ManagerService;
 
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 
 public class Main {
     public static void main(String[] args) {
         ManagerService managerService = new ManagerService();
-        University u1 = new University("UMT", "Johar town", managerService.getStudentService().getStudents(), managerService.getTeacherService().getTeachers());
-        System.out.println("Welcome to " + u1.name());
+
+        Stream<Employee> teacherStream = managerService.getTeacherService().getTeachers()
+                .stream()
+                .map(t -> t);
+        Stream<Employee> managerStream = managerService.getManagementService().getManagers()
+                .stream()
+                .map(t -> t);
+        List<Employee> employees = Stream.concat(teacherStream, managerStream).toList();
+
+        University u1 = new University("UMT", "Johar town", managerService.getStudentService().getStudents(), employees);
+        System.out.println("Welcome to " + u1.getName());
 
 
         Scanner scanner = new Scanner(System.in);
@@ -49,8 +61,9 @@ public class Main {
                             System.out.println("Enter your address:");
                             String address = scanner.nextLine();
                             scanner.nextLine();
-                            managerService.getTeacherService().addTeacher(name, department, age, address, id, department);
+                            managerService.getTeacherService().addTeacher(name, subject, age, address, id, department);
                             System.out.println("Teacher added successfully!");
+                            System.out.println(managerService.getTeacherService().getTeachers());
                             System.out.println("Press 1 to add another teacher or any other key to exit");
                             id = null;
                             temp = scanner.nextInt();
@@ -110,10 +123,13 @@ public class Main {
                     System.out.println("Enter Enrollment ID:");
                     id = scanner.nextLine();
                     do {
-                        System.out.println("Enter user ID:");
-                        String userId = scanner.nextLine();
+                        System.out.println("Enter student ID:");
+                        String studentId = scanner.nextLine();
+                        System.out.println("Enter teacher ID:");
+                        String teacherId = scanner.nextLine();
                         System.out.println("Enter Course ID:");
                         String courseId = scanner.nextLine();
+                        managerService.getEnrollmentService().enrollCourses(id, studentId, teacherId, courseId);
                         System.out.println("Press 1 to enroll more courses:");
                         temp = scanner.nextInt();
                         scanner.nextLine();
